@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.eting</groupId>
-    <artifactId>eting-core</artifactId>
+    <artifactId>eting-server-core</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <parent>
@@ -58,7 +58,7 @@
         <!-- use UTF-8 for everything -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <start-class>hello.Application</start-class>
+        <start-class>eting.EtingApplication</start-class>
     </properties>
 
     <build>
