@@ -14,20 +14,12 @@ import java.util.Date;
 public class User {
 
     @Id
-    private long userId;
+    @Column()
+    private String userId;
 
     @Column(nullable = false)
     private String userPw;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date regDt;
-
-    @Column(nullable = false)
-    private String pushKey;
-
-    @Column(nullable = false)
-    private String os;
-
-    @Column
-    private String activeYn;
 }

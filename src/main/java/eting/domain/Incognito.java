@@ -2,10 +2,7 @@ package eting.domain;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by lifenjoy51 on 14. 12. 13.
@@ -35,6 +32,9 @@ public class Incognito {
 
     @Column
     private String openYn;
+
+    @ManyToOne
+    private User user;
 
 
 }
