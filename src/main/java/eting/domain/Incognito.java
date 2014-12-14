@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Incognito {
 
     @Id
-    private int incognitoId;
+    private long incognitoId;
 
     @Column
     private String etingGroup;
@@ -34,6 +34,7 @@ public class Incognito {
     private String openYn;
 
     @ManyToOne
+    @JoinColumn(name="user_id")
     private User user;
 
 
