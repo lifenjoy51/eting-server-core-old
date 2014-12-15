@@ -49,7 +49,7 @@ public class EtingRestControllerTest {
 
         String result = mockMvc.perform(post("/device")
             .param("uuid", "16b72c7c-6d8d-471d-9615-bb06d40ea748")
-            .param("regDt", Util.getDt())
+            .param("regDt", Util.getDtStr())
             .param("os", "A")
             .param("pushKey", "APA91bFrp1f8U1WfpB62vCVDX3qEv8SThBGng5yfpQwM3jk9pLuSijjMPpejp-1MSSulynAYjjwWkrTHxueS0MH8bMWRf4kIQcMLtW8LHKrH76MachQs_OL7AEE2c-PR0VmnIvnctfZXkTplxj69I0LuEBYB5Ch2vg")
         )

@@ -19,4 +19,11 @@ public class StoryPK implements Serializable {
     private long incognitoId;
 
     private Date storyDt;
+
+    public StoryPK(){};
+
+    public StoryPK(long incognitoId, Date storyDt){
+        this.incognitoId = incognitoId;
+        this.storyDt = storyDt;
+    };
 }

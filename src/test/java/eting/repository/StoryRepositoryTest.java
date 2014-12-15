@@ -5,6 +5,7 @@ import eting.domain.Device;
 import eting.domain.Incognito;
 import eting.domain.Story;
 import eting.domain.StoryPK;
+import eting.util.Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,9 +47,12 @@ public class StoryRepositoryTest {
     }
 
     private Story findStory(Story story) {
-        StoryPK pk = new StoryPK();
-        pk.setIncognitoId(story.getIncognitoId());
-        pk.setStoryDt(story.getStoryDt());
+
+        long id = story.getIncognitoId();
+        long utime = story.getStoryDt().getTime();
+        Date dt = new Date(utime);
+
+        StoryPK pk = new StoryPK(id, dt);
 
         return storyRepository.findOne(pk);
     }
@@ -58,7 +62,7 @@ public class StoryRepositoryTest {
         // given 1
         Device device1 = new Device();
         device1.setUuid("16b72c7c-6d8d-471d-9615-bb06d40ea748");
-        device1.setRegDt(new Date());
+        device1.setRegDt(Util.getDt());
         device1.setOs("A");
         device1.setPushKey("APA91bFrp1f8U1WfpB62vCVDX3qEv8SThBGng5yfpQwM3jk9pLuSijjMPpejp-1MSSulynAYjjwWkrTHxueS0MH8bMWRf4kIQcMLtW8LHKrH76MachQs_OL7AEE2c-PR0VmnIvnctfZXkTplxj69I0LuEBYB5Ch2vg");
 
@@ -91,7 +95,7 @@ public class StoryRepositoryTest {
     public Story insertStory(Incognito incognito){
         Story story = new Story();
         story.setIncognitoId(incognito.getIncognitoId());
-        story.setStoryDt(new Date());
+        story.setStoryDt(Util.getDt());
         story.setStoryContent("test story...");
         story.setStoryType("N");
 

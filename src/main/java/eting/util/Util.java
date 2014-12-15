@@ -15,7 +15,13 @@ public class Util {
 
     public static final MediaType APPLICATION_JSON_UTF8 = new MediaType(APPLICATION_JSON.getType(), APPLICATION_JSON.getSubtype(), Charset.forName("utf8"));
 
-    public static String getDt(){
+    public static Date getDt(){
+        Date now = new Date();
+        long timestamp = now.getTime();
+        return new Date((timestamp/1000)*1000); //milisecond를 제거한다.
+    }
+
+    public static String getDtStr(){
         Date dt = new Date();
         String currentTime = getDtFormat().format(dt);
         return currentTime;
