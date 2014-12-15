@@ -13,6 +13,7 @@ import javax.persistence.*;
 public class Incognito {
 
     @Id
+    @Column(name="incognito_id")
     private long incognitoId;
 
     @Column
@@ -37,5 +38,7 @@ public class Incognito {
     @JoinColumn(name="user_id")
     private User user;
 
-
+    @OneToOne
+    @JoinColumn(name="incognito_id")
+    private Device device;
 }
