@@ -41,4 +41,10 @@ public class Incognito {
     @OneToOne
     @JoinColumn(name="incognito_id")
     private Device device;
+
+    public Incognito(){};
+
+    public Incognito(Device device){
+        this.setIncognitoId(device.getDeviceId());
+    };
 }
