@@ -43,7 +43,7 @@ public class ExchangeService {
      */
     public Story getRandomStory(Incognito incognito){
         //what to return?
-        return storyQueue.get();
+        return storyQueue.get(incognito);
     }
 
 }

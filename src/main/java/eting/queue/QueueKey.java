@@ -31,13 +31,32 @@ public class QueueKey {
             //when group is not normal.
             this.queueType = etingGroup;
         }else{
+            //use story type
+            this.queueType = story.getStoryType();
+        }
+
+    }
+
+    /**
+     * generate key by given incognito.
+     *
+     * @param incognito
+     */
+    public QueueKey(Incognito incognito) {
+
+        //language.
+        this.lang = incognito.getLang();
+
+        //determine queue type by eting group.
+        String etingGroup = incognito.getEtingGroup();
+        if(!"N".equalsIgnoreCase(etingGroup)){
+            //when group is not normal.
+            this.queueType = etingGroup;
+        }else{
             //determine queue type by eting type.
             //when group is normal.
             String etingType = incognito.getEtingType();
             this.queueType = etingType;
         }
-
     }
-
-
 }
