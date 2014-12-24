@@ -34,6 +34,9 @@ public class Incognito {
     @Column
     private String openYn;
 
+    @Column
+    private String lang;
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;
