@@ -1,5 +1,7 @@
 package eting.queue;
 
+import eting.domain.Incognito;
+import eting.domain.Story;
 import lombok.Data;
 
 /**
@@ -8,7 +10,34 @@ import lombok.Data;
 @Data
 public class QueueKey {
 
-    private String lang;
+    private final String lang;
 
-    private QueueType queueType;
+    private final String queueType;
+
+    /**
+     * generate key by given story.
+     *
+     * @param story
+     */
+    public QueueKey(Story story) {
+
+        //language.
+        Incognito incognito = story.getIncognito();
+        this.lang = incognito.getLang();
+
+        //determine queue type by eting group.
+        String etingGroup = incognito.getEtingGroup();
+        if(!"N".equalsIgnoreCase(etingGroup)){
+            //when group is not normal.
+            this.queueType = etingGroup;
+        }else{
+            //determine queue type by eting type.
+            //when group is normal.
+            String etingType = incognito.getEtingType();
+            this.queueType = etingType;
+        }
+
+    }
+
+
 }

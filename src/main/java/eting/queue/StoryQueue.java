@@ -23,7 +23,7 @@ public class StoryQueue {
      */
     public void insert(Story story){
         //generate key.
-        QueueKey key = generateKey(story);
+        QueueKey key = new QueueKey(story);
 
         //insert into queue.
         if(!this.listMap.containsKey(key))
@@ -53,16 +53,6 @@ public class StoryQueue {
             System.out.println("---");
         }
 
-    }
-
-    /**
-     * generate key by given story.
-     *
-     * @param story
-     * @return
-     */
-    private QueueKey generateKey(Story story) {
-        return null;
     }
 
 }
