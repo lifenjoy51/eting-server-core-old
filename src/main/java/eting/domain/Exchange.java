@@ -1,5 +1,6 @@
 package eting.domain;
 
+import eting.code.ExchangeStatus;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,4 +28,19 @@ public class Exchange {
     private long incognitoId;
 
     private String status;
+
+    public Exchange(){};
+
+    public Exchange(Story story, Incognito incognito) {
+        //story info
+        this.setStoryIncognitoId(story.getIncognitoId());
+        this.setStoryDt(story.getStoryDt());
+        //exchange incognito info
+        this.setIncognitoId(incognito.getIncognitoId());
+    }
+
+    public Exchange(Story story, Incognito incognito, ExchangeStatus exchangeStatus) {
+        this(story, incognito);
+        this.setStatus(exchangeStatus.get());
+    }
 }

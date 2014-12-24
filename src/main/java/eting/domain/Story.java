@@ -26,8 +26,8 @@ public class Story {
 
     private String storyType;
 
-    /*@ManyToOne
-    @JoinColumn(name="incognito_id")
-    private Incognito incognito;*/
+    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+    @JoinColumn(name="incognito_id", insertable = false, updatable = false)
+    private Incognito incognito;
 
 }

@@ -25,8 +25,7 @@ public class IncognitoServiceTest {
     @Autowired
     IncognitoService incognitoService;
 
-    @Test
-    public void testRegistration() throws Exception {
+    public Incognito testRegistration() throws Exception {
         // given 1
         Device device1 = new Device();
         device1.setUuid("16b72c7c-6d8d-471d-9615-bb06d40ea748");
@@ -40,15 +39,32 @@ public class IncognitoServiceTest {
         // then
         Assert.notNull(incognito1.getIncognitoId());
 
+        return incognito1;
+
     }
 
     @Test
     public void testGet() throws Exception {
+        Incognito incognito1 = testRegistration();
+        Incognito incognito2 = incognitoService.get(incognito1.getIncognitoId());
+
+        Assert.notNull(incognito2.getIncognitoId());
+
+        System.out.println(incognito2);
 
     }
 
     @Test
     public void testUpdate() throws Exception {
+        Incognito incognito1 = testRegistration();
+        System.out.println(incognito1);
+        incognito1.setBirthYear(1988);
+
+        incognitoService.update(incognito1);
+        Incognito incognito2 = incognitoService.get(incognito1.getIncognitoId());
+
+        Assert.notNull(incognito2.getIncognitoId());
+        System.out.println(incognito2);
 
     }
 }
