@@ -2,11 +2,9 @@ package eting.service;
 
 import eting.EtingApplication;
 import eting.TestConfig;
-import eting.domain.Device;
-import eting.domain.Incognito;
-import eting.domain.Story;
-import eting.domain.StoryPK;
+import eting.domain.*;
 import eting.repository.DeviceRepository;
+import eting.repository.ExchangeRepository;
 import eting.repository.IncognitoRepository;
 import eting.util.Util;
 import org.junit.Test;
@@ -37,6 +35,9 @@ public class ExchangeServiceTest {
     @Autowired
     StoryService storyService;
 
+    @Autowired
+    ExchangeRepository exchangeRepository;
+
     @Test
     public void testExchange(){
         Device device = insertDevice();
@@ -46,6 +47,14 @@ public class ExchangeServiceTest {
         System.out.println(storyFound);
         System.out.println("date >> ");
         System.out.println(storyFound.getStoryDt().getTime());
+        fetchExchanges();
+    }
+
+    private void fetchExchanges() {
+        for(Exchange e : exchangeRepository.findAll()){
+            System.out.println(e);
+        }
+
     }
 
     private Story findStory(Story story) {

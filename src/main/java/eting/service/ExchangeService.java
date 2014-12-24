@@ -23,8 +23,17 @@ public class ExchangeService {
      * @param story
      */
     public void insertQueue(Story story){
+
+        //save exchange info
         Exchange exchange = new Exchange(story);
         exchangeRepository.save(exchange);
+
+        //save story and incognito info!
+        //TODO
+    }
+
+    public void getRandomStory(Incognito incognito){
+
     }
 
 }
