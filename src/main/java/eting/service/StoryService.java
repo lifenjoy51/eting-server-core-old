@@ -22,13 +22,18 @@ public class StoryService {
     @Autowired
     ExchangeService exchangeService;
 
+    /**
+     * save story to DB.<br>
+     * and insert to exchange queue.
+     * @param story
+     */
     public void saveStory(Story story){
 
         //save story
         storyRepository.save(story);
 
         //insert exchange queue
-        //exchangeService.insertQueue(story);
+        exchangeService.insertQueue(story);
 
     }
 

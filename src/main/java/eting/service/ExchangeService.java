@@ -21,10 +21,9 @@ public class ExchangeService {
     /**
      * insert story to exchange queue.
      * @param story
-     * @param incognito
      */
-    public void insertQueue(Story story, Incognito incognito){
-        Exchange exchange = new Exchange(story, incognito, ExchangeStatus.INSERT_QUEUE);
+    public void insertQueue(Story story){
+        Exchange exchange = new Exchange(story);
         exchangeRepository.save(exchange);
     }
 

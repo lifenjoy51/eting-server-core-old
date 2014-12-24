@@ -1,6 +1,7 @@
 package eting.repository;
 
 import eting.EtingApplication;
+import eting.TestConfig;
 import eting.domain.Device;
 import eting.domain.Incognito;
 import eting.domain.Story;
@@ -10,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
@@ -21,8 +23,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = EtingApplication.class)
-@Transactional
+@SpringApplicationConfiguration(classes = TestConfig.class)
+@ActiveProfiles("test")
 public class StoryRepositoryTest {
 
 

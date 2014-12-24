@@ -1,12 +1,14 @@
 package eting.repository;
 
 import eting.EtingApplication;
+import eting.TestConfig;
 import eting.domain.Device;
 import eting.util.Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.transaction.Transactional;
@@ -20,8 +22,8 @@ import static org.junit.Assert.assertThat;
  * Created by lifenjoy51 on 12/3/14.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = EtingApplication.class)
-@Transactional
+@SpringApplicationConfiguration(classes = TestConfig.class)
+@ActiveProfiles("test")
 public class DeviceRepositoryTest {
     @Autowired
     DeviceRepository deviceRepository;

@@ -26,8 +26,18 @@ public class Story {
 
     private String storyType;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE)
+    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE) //lazy fetch problems...
     @JoinColumn(name="incognito_id", insertable = false, updatable = false)
     private Incognito incognito;
+
+    /**
+     * public constructor.
+     */
+    public Story(){};
+
+    public Story(Incognito incognito){
+        this.incognito = incognito;
+    }
+
 
 }

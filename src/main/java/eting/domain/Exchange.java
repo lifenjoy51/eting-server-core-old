@@ -29,18 +29,32 @@ public class Exchange {
 
     private String status;
 
+    /**
+     * public constructor.
+     */
     public Exchange(){};
 
-    public Exchange(Story story, Incognito incognito) {
+    /**
+     * used when inserting queue.
+     * @param story
+     */
+    public Exchange(Story story) {
+        this(story.getIncognito(),ExchangeStatus.INSERT_QUEUE, story);
+    }
+
+    /**
+     * who, what action, which story.
+     * @param story
+     * @param incognito
+     * @param exchangeStatus
+     */
+    public Exchange(Incognito incognito, ExchangeStatus exchangeStatus, Story story) {
         //story info
         this.setStoryIncognitoId(story.getIncognitoId());
         this.setStoryDt(story.getStoryDt());
         //exchange incognito info
         this.setIncognitoId(incognito.getIncognitoId());
-    }
-
-    public Exchange(Story story, Incognito incognito, ExchangeStatus exchangeStatus) {
-        this(story, incognito);
+        //set status.
         this.setStatus(exchangeStatus.get());
     }
 }
