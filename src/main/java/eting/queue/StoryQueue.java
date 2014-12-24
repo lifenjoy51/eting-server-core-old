@@ -4,10 +4,7 @@ import eting.domain.Incognito;
 import eting.domain.Story;
 import org.springframework.stereotype.Component;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Queue;
+import java.util.*;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
@@ -17,7 +14,11 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class StoryQueue {
 
     //main queue
-    Map<QueueKey, Queue<Story>> listMap;
+    private Map<QueueKey, Queue<Story>> listMap;
+
+    public StoryQueue() {
+        this.listMap = new HashMap<QueueKey, Queue<Story>>();
+    }
 
     /**
      * insert queue
@@ -53,6 +54,7 @@ public class StoryQueue {
      * print out all queued stories.
      */
     public void print(){
+        System.out.println("## story queue ");
         for(Map.Entry<QueueKey, Queue<Story>> e : listMap.entrySet()){
             System.out.println(e.getKey());
             for(Story s : e.getValue()){

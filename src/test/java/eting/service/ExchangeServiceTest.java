@@ -3,6 +3,7 @@ package eting.service;
 import eting.EtingApplication;
 import eting.TestConfig;
 import eting.domain.*;
+import eting.queue.StoryQueue;
 import eting.repository.DeviceRepository;
 import eting.repository.ExchangeRepository;
 import eting.repository.IncognitoRepository;
@@ -38,6 +39,9 @@ public class ExchangeServiceTest {
     @Autowired
     ExchangeRepository exchangeRepository;
 
+    @Autowired
+    StoryQueue storyQueue;
+
     @Test
     public void testExchange(){
         Device device = insertDevice();
@@ -48,6 +52,11 @@ public class ExchangeServiceTest {
         System.out.println("date >> ");
         System.out.println(storyFound.getStoryDt().getTime());
         fetchExchanges();
+        printQueue();
+    }
+
+    private void printQueue() {
+        storyQueue.print();
     }
 
     private void fetchExchanges() {
@@ -92,9 +101,12 @@ public class ExchangeServiceTest {
         // given 1
         Incognito incognito = new Incognito();
         incognito.setIncognitoId(device.getDeviceId());
+        incognito.setEtingGroup("N");
+        incognito.setEtingType("N");
+        incognito.setLang("KR");
 
         // when
-        incognitoRepository.save(incognito);
+        incognito = incognitoRepository.save(incognito);
 
         // then
         assertThat(incognitoRepository.findAll().size(), is(1));
@@ -114,7 +126,7 @@ public class ExchangeServiceTest {
         System.out.println(story.getStoryDt().getTime());
 
         //when
-        storyService.saveStory(story);
+        story = storyService.saveStory(story);
 
 
         return story;

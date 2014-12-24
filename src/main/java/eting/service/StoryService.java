@@ -27,13 +27,16 @@ public class StoryService {
      * and insert to exchange queue.
      * @param story
      */
-    public void saveStory(Story story){
+    public Story saveStory(Story story){
 
         //save story
-        storyRepository.save(story);
+        Story savedStory = storyRepository.save(story);
 
         //insert exchange queue
-        exchangeService.insertQueue(story);
+        //must pass saved story.
+        exchangeService.insertQueue(savedStory);
+
+        return savedStory;
 
     }
 
