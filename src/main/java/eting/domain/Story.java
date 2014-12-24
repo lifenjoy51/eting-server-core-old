@@ -26,7 +26,7 @@ public class Story {
 
     private String storyType;
 
-    @ManyToOne(fetch=FetchType.LAZY, cascade=CascadeType.MERGE) //lazy fetch problems...
+    @ManyToOne (fetch=FetchType.EAGER) //lazy fetch problems... fetch=FetchType.LAZY,
     @JoinColumn(name="incognito_id", insertable = false, updatable = false)
     private Incognito incognito;
 

@@ -41,7 +41,7 @@ public class UserService {
      * @return
      */
     public boolean maches(String userId, String userPw){
-        User user = userRepository.getOne(userId);
+        User user = userRepository.findOne(userId);
         return standardPasswordEncoder.matches(userPw, user.getUserPw());
     };
 }

@@ -38,7 +38,12 @@ public class StoryService {
     }
 
 
+    /**
+     * get story
+     * @param pk
+     * @return
+     */
     public Story getStory(StoryPK pk) {
-        return storyRepository.getOne(pk);
+        return storyRepository.findOne(pk);
     }
 }

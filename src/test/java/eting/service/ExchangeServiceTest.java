@@ -26,7 +26,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = TestConfig.class)
 @ActiveProfiles("test")
-public class StoryServiceTest {
+public class ExchangeServiceTest {
 
     @Autowired
     DeviceRepository deviceRepository;
@@ -38,7 +38,7 @@ public class StoryServiceTest {
     StoryService storyService;
 
     @Test
-    public void testStory(){
+    public void testExchange(){
         Device device = insertDevice();
         Incognito incognito = insertIncognito(device);
         Story story = insertStory(incognito);
