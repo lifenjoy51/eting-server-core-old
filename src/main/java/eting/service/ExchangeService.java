@@ -43,7 +43,12 @@ public class ExchangeService {
      */
     public Story getRandomStory(Incognito incognito){
         //what to return?
-        return storyQueue.get(incognito);
+        Story story = storyQueue.get(incognito);
+        //re insert into queue.
+        //story will be deleted when replied or reported.
+        storyQueue.insert(story);
+
+        return story;
     }
 
 

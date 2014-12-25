@@ -1,15 +1,13 @@
 package eting.service;
 
-import eting.domain.Exchange;
 import eting.domain.Incognito;
 import eting.domain.Story;
 import eting.domain.StoryPK;
 import eting.helper.DuplicationHelper;
+import eting.helper.ProhibitHelper;
 import eting.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.io.Serializable;
 
 /**
  * Created by lifenjoy51 on 14. 12. 22.
@@ -22,6 +20,9 @@ public class StoryService {
 
     @Autowired
     DuplicationHelper duplicationHelper;
+
+    @Autowired
+    JunkService junkService;
 
     @Autowired
     ExchangeService exchangeService;
@@ -43,16 +44,20 @@ public class StoryService {
      */
     public Story saveStory(Story story){
 
-        // 기기정보가 없으면 처리하지 않는다.
+        // 기기정보가 없으면 처리하지 않는다. >> this is blocked by security.
 
         // savedStory에 기기고유번호를 넣는다.
 
         // 14.03.22 기기 그룹 설정
 
-        // 내용 체크
+        // exit if content is empty.
+        if(isEmpty(story)) {
+            return null;
+        }
 
         // 금지어 검사로직
         // 금지어가 들어가있으면 해당 유저의 prohibit_type을 바꾼다.
+        handleStoryType(story);
 
         // 금지어 그룹 업데이트
 
@@ -88,5 +93,32 @@ public class StoryService {
 
 
 
+    }
+
+    private void handleStoryType(Story story) {
+        String storyType = checkStoryType(story.getStoryContent());
+            //update user info if eting type not equal to story type.
+            Incognito incognito = story.getIncognito();
+
+    }
+
+    private String checkStoryType(String storyContent) {
+        return null;
+    }
+
+    /**
+     * check story content is empty.
+     *
+     * @param story
+     * @return
+     */
+    private boolean isEmpty(Story story) {
+        String content = story.getStoryContent();
+        if(content != null){
+            if(content.trim().equals("")){
+                return true;
+            }
+        }
+        return false;
     }
 }
