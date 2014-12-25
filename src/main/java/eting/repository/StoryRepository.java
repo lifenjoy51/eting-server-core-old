@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * Created by lifenjoy51 on 12/15/14.
  */
 public interface StoryRepository extends JpaRepository<Story, StoryPK> {
 
+    public List<Story> findByIncognitoId(long incognitoId);
 }
