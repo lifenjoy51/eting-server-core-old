@@ -48,6 +48,7 @@ public class Incognito {
     public Incognito(){};
 
     public Incognito(Device device){
-        this.setIncognitoId(device.getDeviceId());
-    };
+        this.incognitoId = device.getDeviceId();
+        this.device = device;
+    }
 }

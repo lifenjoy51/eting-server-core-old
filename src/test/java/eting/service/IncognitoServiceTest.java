@@ -48,6 +48,7 @@ public class IncognitoServiceTest {
     @Test
     public void testGet() throws Exception {
         Incognito incognito1 = testRegistration();
+        System.out.println(incognito1);
         Incognito incognito2 = incognitoService.get(incognito1.getIncognitoId());
 
         Assert.notNull(incognito2.getIncognitoId());

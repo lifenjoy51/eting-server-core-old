@@ -36,7 +36,7 @@ public class IncognitoService {
         Incognito incognito = new Incognito(device);
 
         //save incognito
-        incognitoRepository.save(incognito);
+        incognito = incognitoRepository.save(incognito);
 
         return incognito;
     }

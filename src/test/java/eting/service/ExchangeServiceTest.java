@@ -1,12 +1,13 @@
 package eting.service;
 
 import eting.TestConfig;
+import eting.TestUtil;
 import eting.domain.*;
 import eting.domain.pk.StoryPK;
-import eting.repository.DeviceRepository;
-import eting.repository.ExchangeRepository;
-import eting.repository.IncognitoRepository;
+import eting.service.ExchangeService;
+import eting.service.IncognitoService;
 import eting.util.Util;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.Date;
+import java.util.*;
 
 import static org.hamcrest.CoreMatchers.is;
 
@@ -23,108 +24,82 @@ import static org.hamcrest.CoreMatchers.is;
 @ActiveProfiles("test")
 public class ExchangeServiceTest {
 
-    @Autowired
-    DeviceRepository deviceRepository;
 
     @Autowired
-    IncognitoRepository incognitoRepository;
+    IncognitoService incognitoService;
 
     @Autowired
     StoryService storyService;
 
     @Autowired
-    ExchangeRepository exchangeRepository;
+    ExchangeService exchangeService;
 
     @Autowired
     StoryQueueService storyQueueService;
 
+    //remember data.
+    Map<Long, Incognito> userList = new HashMap<Long, Incognito>();
+
     @Test
-    public void testExchange(){
-        Device device = insertDevice();
-        Incognito incognito = insertIncognito(device);
-        Story story = insertStory(incognito);
-        Story storyFound = findStory(story);
-        System.out.println(storyFound);
-        System.out.println("date >> ");
-        System.out.println(storyFound.getStoryDt().getTime());
-        fetchExchanges();
+    public void testExchange() {
+        //add 3 incognito.
+        Incognito james = newDevice();
+        Incognito tom = newDevice();
+        Incognito amy = newDevice();
+
+        //first. james write story.
+        Story jamesW1 = writeStory(james);
+        System.out.println("jamesW1 " + jamesW1);
+        Story jamesG1 = getStory(james);
+        System.out.println("jamesG1 " + jamesG1);
+
+        //then tom write story.
+        writeStory(tom);
+
+        //queue
         printQueue();
+    }
+
+    private Story getStory(Incognito james) {
+        return exchangeService.getRandomStory(james);
+    }
+
+    private Story writeStory(Incognito incognito) {
+
+        Story story = new Story(incognito);
+        story.setIncognitoId(incognito.getIncognitoId());
+        story.setStoryDt(Util.getDt());
+        story.setStoryContent(TestUtil.randomStoryText());
+        story.setStoryType("N");
+
+        story = storyService.saveStory(story);
+        return story;
+    }
+
+    public Incognito newDevice() {
+
+        // device
+        Device device = new Device();
+        device.setUuid(UUID.randomUUID().toString());
+        device.setRegDt(Util.getDt());
+        device.setOs("A");
+        device.setPushKey(RandomStringUtils.randomAscii(160));
+        System.out.println(device);
+
+        //incognito
+        Incognito incognito = incognitoService.registration(device);
+        incognito.setEtingGroup("N");
+        incognito.setEtingType("N");
+        incognito.setLang("KR");
+        incognitoService.update(incognito);
+
+        userList.put(incognito.getIncognitoId(), incognito);
+
+        return incognito;
     }
 
     private void printQueue() {
         storyQueueService.print();
     }
 
-    private void fetchExchanges() {
-        for(Exchange e : exchangeRepository.findAll()){
-            System.out.println(e);
-        }
-
-    }
-
-    private Story findStory(Story story) {
-
-        long id = story.getIncognitoId();
-        long utime = story.getStoryDt().getTime();
-        Date dt = new Date(utime);
-
-        StoryPK pk = new StoryPK(id, dt);
-
-        return storyService.getStory(pk);
-    }
-
-    public Device insertDevice() {
-
-        // given 1
-        Device device1 = new Device();
-        device1.setUuid("16b72c7c-6d8d-471d-9615-bb06d40ea748");
-        device1.setRegDt(Util.getDt());
-        device1.setOs("A");
-        device1.setPushKey("APA91bFrp1f8U1WfpB62vCVDX3qEv8SThBGng5yfpQwM3jk9pLuSijjMPpejp-1MSSulynAYjjwWkrTHxueS0MH8bMWRf4kIQcMLtW8LHKrH76MachQs_OL7AEE2c-PR0VmnIvnctfZXkTplxj69I0LuEBYB5Ch2vg");
-
-        // when
-        deviceRepository.save(device1);
-
-        // then
-        //assertThat(deviceRepository.findAll().size(), is(1));
-
-        return device1;
-
-    }
-
-    public Incognito insertIncognito(Device device){
-
-        // given 1
-        Incognito incognito = new Incognito();
-        incognito.setIncognitoId(device.getDeviceId());
-        incognito.setEtingGroup("N");
-        incognito.setEtingType("N");
-        incognito.setLang("KR");
-
-        // when
-        incognito = incognitoRepository.save(incognito);
-
-        // then
-        //assertThat(incognitoRepository.findAll().size(), is(1));
-
-        return incognito;
-
-    }
-
-    public Story insertStory(Incognito incognito){
-        Story story = new Story(incognito);
-        story.setIncognitoId(incognito.getIncognitoId());
-        story.setStoryDt(Util.getDt());
-        story.setStoryContent("test story...");
-        story.setStoryType("N");
-
-        System.out.println("date >> ");
-        System.out.println(story.getStoryDt().getTime());
-
-        //when
-        story = storyService.saveStory(story);
-
-
-        return story;
-    }
 }
