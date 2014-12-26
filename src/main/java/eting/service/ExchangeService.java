@@ -45,6 +45,12 @@ public class ExchangeService {
         //story will be deleted when replied or reported.
         storyQueueService.insert(story);
 
+        //check write incognito.
+        if(story.getIncognitoId() == incognito.getIncognitoId()){
+            //TODO what to sendback.
+            story = null;
+        }
+
         return story;
     }
 

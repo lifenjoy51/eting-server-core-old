@@ -54,7 +54,16 @@ public class ExchangeServiceTest {
         System.out.println("jamesG1 " + jamesG1);
 
         //then tom write story.
-        writeStory(tom);
+        Story tomW1 = writeStory(tom);
+        System.out.println("tomW1 " + tomW1);
+        Story tomG1 = getStory(tom);
+        System.out.println("tomG1 " + tomG1);
+
+        //amy
+        Story amyW1 = writeStory(amy);
+        System.out.println("amyW1 " + amyW1);
+        Story amyG1 = getStory(amy);
+        System.out.println("amyG1 " + amyG1);
 
         //queue
         printQueue();
@@ -66,6 +75,7 @@ public class ExchangeServiceTest {
 
     private Story writeStory(Incognito incognito) {
 
+        sleep();
         Story story = new Story(incognito);
         story.setIncognitoId(incognito.getIncognitoId());
         story.setStoryDt(Util.getDt());
@@ -74,6 +84,15 @@ public class ExchangeServiceTest {
 
         story = storyService.saveStory(story);
         return story;
+    }
+
+    private void sleep() {
+        //sleep 1 second.
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public Incognito newDevice() {
