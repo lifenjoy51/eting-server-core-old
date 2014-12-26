@@ -3,9 +3,6 @@ package eting.service;
 import eting.TestConfig;
 import eting.TestUtil;
 import eting.domain.*;
-import eting.domain.pk.StoryPK;
-import eting.service.ExchangeService;
-import eting.service.IncognitoService;
 import eting.util.Util;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
@@ -69,8 +66,8 @@ public class ExchangeServiceTest {
         printQueue();
     }
 
-    private Story getStory(Incognito james) {
-        return exchangeService.getRandomStory(james);
+    private Story getStory(Incognito incognito) {
+        return exchangeService.getRandomStory(incognito);
     }
 
     private Story writeStory(Incognito incognito) {
@@ -82,7 +79,7 @@ public class ExchangeServiceTest {
         story.setStoryContent(TestUtil.randomStoryText());
         story.setStoryType("N");
 
-        story = storyService.saveStory(story);
+        story = storyService.save(story);
         return story;
     }
 

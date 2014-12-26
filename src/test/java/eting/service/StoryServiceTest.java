@@ -101,7 +101,7 @@ public class StoryServiceTest {
         System.out.println(story.getStoryDt().getTime());
 
         //when
-        storyService.saveStory(story);
+        storyService.save(story);
 
 
         return story;

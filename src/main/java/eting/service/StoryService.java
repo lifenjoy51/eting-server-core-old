@@ -43,7 +43,7 @@ public class StoryService {
      * and insert to exchange queue.
      * @param story
      */
-    public Story saveStory(Story story){
+    public Story save(Story story){
 
         // 기기정보가 없으면 처리하지 않는다. >> this is blocked by security.
         // exit if content is empty.
