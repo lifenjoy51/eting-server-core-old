@@ -3,6 +3,7 @@ package eting.service;
 import eting.domain.StoryType;
 import eting.util.ContentUtil;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,33 +13,52 @@ import java.util.regex.Pattern;
 /**
  * Created by lifenjoy51 on 14. 12. 26.
  */
+@Service
 public class StoryTypeService {
 
     private static List<StoryType> storyTypeList;
     private List<String> blockedTypeList;
+
+    public StoryTypeService() {
+        blockedTypeList = new ArrayList<String>();
+        updateStoryTypeList();
+    }
 
     public boolean isBlock(String storyType) {
         if(blockedTypeList.contains(storyType)) return true;
         return false;
     }
 
+    /**
+     * determine type of story content.
+     * TODO test!!
+     *
+     * @param content
+     * @return
+     */
     public String getType(String content) {
 
         //금지어를 포함하고 있는지 여부
         int cnt = 0;
         int contentLength = content.length();
         int limitCnt = contentLength / 100;
+        String type = "N";
 
         //140510 정규식으로 전환
-        for (StoryType storyType : getStoryTypeList()) {
+        for (StoryType storyType : storyTypeList) {
+
+            //check contains word.
             if (content.contains(storyType.getWord())) {
+
+                //find reg exp.
                 Matcher m = storyType.getP().matcher(content);
                 if (m.find()) {
-                    String block = storyType.getBlock();
-                    cnt++;
 
-                    if (cnt > limitCnt || block.equals("1")) {
-                        String type = storyType.getType();
+                    cnt++;
+                    String block = storyType.getBlock();
+
+                    if (cnt > limitCnt || block.equals("Y")) {
+                        type = storyType.getType();
                         return type;
                     }
                 }
@@ -47,16 +67,9 @@ public class StoryTypeService {
 
         //check normal content.
         // 무의미한 단어 검사 .
-        // 이야기의 story_prohibit_type을 T로하고
-        // device_group을 T로 바꾼다.
-        ContentUtil.isNormalContent(content);
+        if(!ContentUtil.isNormalContent(content)) type="T";
 
-        return null;
-    }
-
-    private List<StoryType> getStoryTypeList() {
-        if(storyTypeList == null) updateStoryTypeList();
-        return storyTypeList;
+        return type;
     }
 
     @Scheduled(cron = "0 0 */1 * * *")

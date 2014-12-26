@@ -83,7 +83,7 @@ public class StoryService {
         Incognito incognito = story.getIncognito();
 
         //story type.
-        String storyType = storyTypeService.getType(story);
+        String storyType = storyTypeService.getType(story.getStoryContent());
 
         //update incognito if type is not equal.
         if(!storyType.equals(incognito.getEtingType())){

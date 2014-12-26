@@ -4,13 +4,14 @@ import eting.domain.Story;
 import eting.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by lifenjoy51 on 14. 12. 25.
  */
-@Component
+@Service
 public class DuplicationService {
 
     @Autowired
