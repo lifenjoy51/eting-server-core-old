@@ -2,9 +2,7 @@ package eting.service;
 
 import eting.domain.Incognito;
 import eting.domain.Story;
-import eting.domain.StoryPK;
-import eting.helper.DuplicationHelper;
-import eting.helper.ProhibitHelper;
+import eting.domain.pk.StoryPK;
 import eting.repository.StoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +17,13 @@ public class StoryService {
     StoryRepository storyRepository;
 
     @Autowired
-    DuplicationHelper duplicationHelper;
+    DuplicationService duplicationService;
 
     @Autowired
-    JunkService junkService;
+    StoryTypeService storyTypeService;
+
+    @Autowired
+    IncognitoService incognitoService;
 
     @Autowired
     ExchangeService exchangeService;
@@ -59,8 +60,6 @@ public class StoryService {
         // 금지어가 들어가있으면 해당 유저의 prohibit_type을 바꾼다.
         handleStoryType(story);
 
-        // 금지어 그룹 업데이트
-
         // 무의미한 단어 검사 .
         // 이야기의 story_prohibit_type을 T로하고
         // device_group을 T로 바꾼다.
@@ -68,7 +67,7 @@ public class StoryService {
         // 해당 기기가 바로 전에 입력한 이야기를 가져온다.
         // TODO 2014.03.12 이야기를 전송하고도 목록에 뜨지 않는 버그때문에 우선 주석처리..
         // 이전에 저장한 이야기와 현재 저장할 이야기가 같으면 작업을 종료한다.
-        duplicationHelper.isDuplicated(story);
+        duplicationService.isDuplicated(story);
 
         // 이야기를 저장한다.
 
@@ -95,15 +94,25 @@ public class StoryService {
 
     }
 
+    /**
+     * update user info if eting type not equal to story type.
+     *
+     * @param story
+     */
     private void handleStoryType(Story story) {
-        String storyType = checkStoryType(story.getStoryContent());
-            //update user info if eting type not equal to story type.
-            Incognito incognito = story.getIncognito();
 
-    }
+        Incognito incognito = story.getIncognito();
 
-    private String checkStoryType(String storyContent) {
-        return null;
+        //story type.
+        String storyType = storyTypeService.getType(story);
+
+        //skip if type is equal.
+        if(storyType.equals(incognito.getEtingType())) return;
+
+        //or update
+        incognito.setEtingType(storyType);
+        incognitoService.update(incognito);
+
     }
 
     /**

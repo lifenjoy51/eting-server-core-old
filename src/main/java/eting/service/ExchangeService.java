@@ -1,11 +1,8 @@
 package eting.service;
 
-import eting.code.ExchangeStatus;
-import eting.domain.Device;
 import eting.domain.Exchange;
 import eting.domain.Incognito;
 import eting.domain.Story;
-import eting.queue.StoryQueue;
 import eting.repository.ExchangeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +17,7 @@ public class ExchangeService {
     ExchangeRepository exchangeRepository;
 
     @Autowired
-    StoryQueue storyQueue;
+    StoryQueueService storyQueueService;
 
     /**
      * insert story to exchange queue.
@@ -33,7 +30,7 @@ public class ExchangeService {
         exchangeRepository.save(exchange);
 
         //save story and incognito info!
-        storyQueue.insert(story);
+        storyQueueService.insert(story);
     }
 
     /**
@@ -43,10 +40,10 @@ public class ExchangeService {
      */
     public Story getRandomStory(Incognito incognito){
         //what to return?
-        Story story = storyQueue.get(incognito);
+        Story story = storyQueueService.get(incognito);
         //re insert into queue.
         //story will be deleted when replied or reported.
-        storyQueue.insert(story);
+        storyQueueService.insert(story);
 
         return story;
     }

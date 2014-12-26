@@ -1,9 +1,8 @@
 package eting.service;
 
-import eting.EtingApplication;
 import eting.TestConfig;
 import eting.domain.*;
-import eting.queue.StoryQueue;
+import eting.domain.pk.StoryPK;
 import eting.repository.DeviceRepository;
 import eting.repository.ExchangeRepository;
 import eting.repository.IncognitoRepository;
@@ -15,12 +14,9 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.transaction.Transactional;
-
 import java.util.Date;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = TestConfig.class)
@@ -40,7 +36,7 @@ public class ExchangeServiceTest {
     ExchangeRepository exchangeRepository;
 
     @Autowired
-    StoryQueue storyQueue;
+    StoryQueueService storyQueueService;
 
     @Test
     public void testExchange(){
@@ -56,7 +52,7 @@ public class ExchangeServiceTest {
     }
 
     private void printQueue() {
-        storyQueue.print();
+        storyQueueService.print();
     }
 
     private void fetchExchanges() {

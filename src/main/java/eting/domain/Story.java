@@ -1,5 +1,6 @@
 package eting.domain;
 
+import eting.domain.pk.StoryPK;
 import lombok.Data;
 
 import javax.persistence.*;

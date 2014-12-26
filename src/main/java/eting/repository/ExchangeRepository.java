@@ -1,9 +1,7 @@
 package eting.repository;
 
 import eting.domain.Exchange;
-import eting.domain.ExchangePK;
-import eting.domain.Story;
-import eting.domain.StoryPK;
+import eting.domain.pk.ExchangePK;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

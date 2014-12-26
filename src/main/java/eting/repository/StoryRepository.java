@@ -1,11 +1,8 @@
 package eting.repository;
 
-import eting.domain.Incognito;
 import eting.domain.Story;
-import eting.domain.StoryPK;
+import eting.domain.pk.StoryPK;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package eting.domain;
+package eting.domain.pk;
 
 import lombok.Data;
 

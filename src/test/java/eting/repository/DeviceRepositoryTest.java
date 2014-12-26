@@ -1,9 +1,7 @@
 package eting.repository;
 
-import eting.EtingApplication;
 import eting.TestConfig;
 import eting.domain.Device;
-import eting.util.Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +9,6 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 

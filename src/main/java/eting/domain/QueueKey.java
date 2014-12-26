@@ -1,4 +1,4 @@
-package eting.queue;
+package eting.domain;
 
 import eting.domain.Incognito;
 import eting.domain.Story;

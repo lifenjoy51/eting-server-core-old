@@ -1,6 +1,7 @@
-package eting.queue;
+package eting.service;
 
 import eting.domain.Incognito;
+import eting.domain.QueueKey;
 import eting.domain.Story;
 import org.springframework.stereotype.Component;
 
@@ -11,12 +12,12 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * Created by lifenjoy51 on 14. 12. 25.
  */
 @Component
-public class StoryQueue {
+public class StoryQueueService {
 
     //main queue
     private Map<QueueKey, Queue<Story>> listMap;
 
-    public StoryQueue() {
+    public StoryQueueService() {
         this.listMap = new HashMap<QueueKey, Queue<Story>>();
     }
 

@@ -1,6 +1,7 @@
 package eting.domain;
 
-import eting.code.ExchangeStatus;
+import eting.domain.code.ExchangeStatus;
+import eting.domain.pk.ExchangePK;
 import lombok.Data;
 
 import javax.persistence.*;

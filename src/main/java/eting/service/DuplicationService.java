@@ -1,4 +1,4 @@
-package eting.helper;
+package eting.service;
 
 import eting.domain.Story;
 import eting.repository.StoryRepository;
@@ -11,7 +11,7 @@ import java.util.List;
  * Created by lifenjoy51 on 14. 12. 25.
  */
 @Component
-public class DuplicationHelper {
+public class DuplicationService {
 
     @Autowired
     StoryRepository repository;

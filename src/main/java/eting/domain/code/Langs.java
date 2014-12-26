@@ -1,4 +1,4 @@
-package eting.code;
+package eting.domain.code;
 
 /**
  * Created by lifenjoy51 on 14. 12. 25.
